@@ -8,14 +8,15 @@ const CustomerCardDemo = () => {
     // Try to import CustomerCard - this will work after Exercise 3
     const CustomerCard = require('../components/CustomerCard')?.default;
     const mockCustomers = require('../data/mock-customers')?.mockCustomers;
-    
+
     if (CustomerCard && mockCustomers?.[0]) {
       return (
         <div className="space-y-4">
           <p className="text-green-600 text-sm font-medium">✅ CustomerCard implemented!</p>
           <div className="flex flex-wrap gap-4">
-            <CustomerCard customer={mockCustomers[0]} />
-            <CustomerCard customer={mockCustomers[1]} />
+            {mockCustomers.map((customer: { id: string; name: string; company: string; healthScore: number }) => (
+              <CustomerCard key={customer.id} customer={customer} />
+            ))}
           </div>
         </div>
       );
