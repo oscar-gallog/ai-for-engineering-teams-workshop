@@ -1,31 +1,15 @@
 'use client';
 
 import { Customer } from '../data/mock-customers';
+import HealthIndicator from './HealthIndicator';
 
 export interface CustomerCardProps {
   customer: Customer;
   onClick?: (customer: Customer) => void;
 }
 
-function getHealthColor(score: number): { bg: string; text: string; ring: string } {
-  if (score <= 30) {
-    return { bg: 'bg-red-100', text: 'text-red-700', ring: 'ring-red-500' };
-  }
-  if (score <= 70) {
-    return { bg: 'bg-yellow-100', text: 'text-yellow-700', ring: 'ring-yellow-500' };
-  }
-  return { bg: 'bg-green-100', text: 'text-green-700', ring: 'ring-green-500' };
-}
-
-function getHealthLabel(score: number): string {
-  if (score <= 30) return 'Critical';
-  if (score <= 70) return 'Warning';
-  return 'Healthy';
-}
-
 export default function CustomerCard({ customer, onClick }: CustomerCardProps) {
   const { name, company, healthScore, email, domains } = customer;
-  const health = getHealthColor(healthScore);
 
   return (
     <div
@@ -51,10 +35,7 @@ export default function CustomerCard({ customer, onClick }: CustomerCardProps) {
           )}
         </div>
 
-        <div className={`flex-shrink-0 flex flex-col items-center rounded-lg px-2.5 py-1.5 ${health.bg}`}>
-          <span className={`text-lg font-bold ${health.text}`}>{healthScore}</span>
-          <span className={`text-[10px] font-medium ${health.text}`}>{getHealthLabel(healthScore)}</span>
-        </div>
+        <HealthIndicator score={healthScore} showScore compact={false} />
       </div>
 
       {domains && domains.length > 0 && (

@@ -32,6 +32,34 @@ const CustomerCardDemo = () => {
   );
 };
 
+const HealthIndicatorDemo = () => {
+  try {
+    const HealthIndicator = require('../components/HealthIndicator')?.default;
+    const mockCustomers = require('../data/mock-customers')?.mockCustomers;
+
+    if (HealthIndicator && mockCustomers?.length) {
+      return (
+        <div className="space-y-4">
+          <p className="text-green-600 text-sm font-medium">✅ HealthIndicator implemented!</p>
+          <div className="flex flex-wrap gap-4">
+            {mockCustomers.map((customer: { id: string; healthScore: number }) => (
+              <HealthIndicator key={customer.id} score={customer.healthScore} showScore />
+            ))}
+          </div>
+        </div>
+      );
+    }
+  } catch (error) {
+    // Component doesn't exist yet
+  }
+
+  return (
+    <div className="text-gray-500 text-sm">
+      After Exercise 4, your HealthIndicator components will appear here.
+    </div>
+  );
+};
+
 const DashboardWidgetDemo = ({ widgetName, exerciseNumber }: { widgetName: string, exerciseNumber: number }) => {
   return (
     <div className="border-2 border-dashed border-gray-200 rounded-lg p-4 text-center text-gray-500 text-sm">
@@ -61,7 +89,8 @@ export default function Home() {
         <div className="space-y-2 text-sm text-gray-600">
           <p>✅ Setup Complete - Next.js app is running</p>
           <p className="text-gray-400">⏳ Exercise 3: CustomerCard component (implement to see here)</p>
-          <p className="text-gray-400">⏳ Exercise 4: CustomerSelector integration</p>
+          <p className="text-gray-400">⏳ Exercise 4: HealthIndicator component (implement to see here)</p>
+          <p className="text-gray-400">⏳ Exercise 5: CustomerSelector integration</p>
           <p className="text-gray-400">⏳ Exercise 5: Domain Health widget</p>
           <p className="text-gray-400">⏳ Exercise 9: Production-ready features</p>
         </div>
@@ -74,6 +103,14 @@ export default function Home() {
           <h3 className="text-lg font-semibold mb-4">CustomerCard Component</h3>
           <Suspense fallback={<div className="text-gray-500">Loading...</div>}>
             <CustomerCardDemo />
+          </Suspense>
+        </section>
+
+        {/* HealthIndicator Section */}
+        <section className="bg-white rounded-lg shadow p-6">
+          <h3 className="text-lg font-semibold mb-4">HealthIndicator Component</h3>
+          <Suspense fallback={<div className="text-gray-500">Loading...</div>}>
+            <HealthIndicatorDemo />
           </Suspense>
         </section>
 
